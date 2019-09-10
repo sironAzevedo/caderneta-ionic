@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, MenuController, LoadingController } from '@ionic/angular';
 import { CredenciaisDTO } from 'src/app/models/interfaces';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,23 +13,22 @@ export class LoginPage implements OnInit {
   public user: CredenciaisDTO = {};
 
   constructor(
-    public navCtrl: NavController,
+    public router: NavController,
     public menu: MenuController,
-    private loadingCtrl: LoadingController,) { }
+    private loadingCtrl: LoadingController,
+    private authService: AuthService,) { }
 
   ngOnInit() {
   }
 
   async login() {
-    await this.presentLoading();
-
-    console.log(this.user);
+    await this.presentLoading();  
 
     try {
-      this.navCtrl.navigateRoot('/dashboard');
-    } catch (error) {
-      console.log(error);
-    } finally{
+      this.authService.authenticate(this.user).subscribe(); 
+    } catch (error) {} 
+    finally{
+      this.router.navigateRoot('/dashboard');
       this.loading.dismiss();
     }
   }

@@ -3,6 +3,10 @@ export interface CredenciaisDTO {
     senha?: string
 }
 
+export interface AuthResponse {
+    token: string
+}
+
 export interface UsuarioDTO {
     codigo?: string;
     nome: string,

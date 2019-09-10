@@ -16,12 +16,10 @@ export class DashboardService {
         })
     };
 
-    constructor(public http: HttpClient) { }
+    constructor(public http: HttpClient) { } 
 
-
-
-    findAll(): Observable<TipoContaDTO[]> {
-        return this.http.get<TipoContaDTO[]>(`${API_CONFIG.baseUrl}/v1/tipoContas`);
+    findAll(): Observable<DashboardDTO[]> {
+        return this.http.get<DashboardDTO[]>(`${API_CONFIG.baseUrl}/v1/dashboard`);
     }
 }
 

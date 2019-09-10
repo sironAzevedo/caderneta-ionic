@@ -12,7 +12,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardService } from './services/domain/dashboard.service';
 import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
 import { StorageService } from './services/storage.service';
+import { IonicStorageModule } from '@ionic/storage';
 import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +23,7 @@ import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule
   ],
   providers: [
@@ -28,6 +31,7 @@ import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
     SplashScreen,
     DashboardService,
     StorageService,
+    AuthService,
     ErrorInterceptorProvider,
     AuthInterceptorProvider,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
