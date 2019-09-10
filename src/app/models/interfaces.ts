@@ -13,3 +13,13 @@ export interface TipoContaDTO {
     tipo: string;
     descricao: string;
 }
+
+export interface LocalUser {
+    token: string;
+    email: string;
+}
+
+export interface FieldMessage {
+    fieldName: string;
+    message: string;
+}

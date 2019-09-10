@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { DashboardService } from '../services/domain/dashboard.service';
-import { DashboardDTO, TipoContaDTO } from '../models/schema';
-import { API_CONFIG } from '../services/config/api.config';
+import { DashboardService } from '../../services/domain/dashboard.service';
+import { DashboardDTO, TipoContaDTO } from '../../models/interfaces';
+import { API_CONFIG } from '../../services/config/api.config';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,17 +20,21 @@ export class DashboardPage implements OnInit {
     public dashboard: DashboardService) { }
 
   ngOnInit() {
-    this.dashboard.findAll()
-      .subscribe(response => {
-        this.items = response;
-        console.log(response);
-      },
-        error => { });
+    this.loadDashboard();
   }
 
-  showProdutos(codigo : string) {
+  loadDashboard() {
+    this.dashboard.findAll().subscribe(response => {
+      this.items = response;
+      console.log(response);
+    },
+      error => {});
+  }
+
+
+  showProdutos(codigo: string) {
     //this.navCtrl.push('ProdutosPage', {categoria_id: categoria_id});  
-    console.log(codigo) ;
+    console.log(codigo);
   }
 
 }
