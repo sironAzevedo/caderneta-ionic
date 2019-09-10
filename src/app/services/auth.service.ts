@@ -47,10 +47,7 @@ export class AuthService {
     }
 
     isAuthenticated() {
-        if(this.storage.getLocalUser().token){
-            return true;
-        } 
-        return false;
+        return this.authenticationState.asObservable();
     }
 
     logout() {

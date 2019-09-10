@@ -28,7 +28,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authService: AuthService,
+    private auth: AuthService,
     public router: NavController
   ) {
     this.initializeApp();
@@ -44,7 +44,7 @@ export class AppComponent {
 
 
   async verifyLogin() {
-    await this.authService.authenticationState.subscribe(state => {
+    await this.auth.isAuthenticated().subscribe(state => {
       if (state) {
         this.router.navigateRoot('/dashboard');
       } else{
