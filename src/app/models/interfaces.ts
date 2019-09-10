@@ -1,3 +1,16 @@
+export interface CredenciaisDTO {
+    email?: string,
+    senha?: string
+}
+
+export interface UsuarioDTO {
+    codigo?: string;
+    nome: string,
+    sobreNome: string,
+    email: string,
+    senha: string
+}
+
 export interface DashboardDTO {
     codigo: string;
     mes: string;
@@ -22,4 +35,4 @@ export interface LocalUser {
 export interface FieldMessage {
     fieldName: string;
     message: string;
-}
+} 
