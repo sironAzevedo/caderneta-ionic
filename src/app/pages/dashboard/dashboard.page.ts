@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { DashboardService } from '../../services/domain/dashboard.service';
 import { DashboardDTO, TipoContaDTO } from '../../models/interfaces';
 import { API_CONFIG } from '../../services/config/api.config';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,24 +17,25 @@ export class DashboardPage implements OnInit {
   items: DashboardDTO[];
 
   constructor(
-    public navCtrl: NavController,
-    public dashboard: DashboardService) { }
+    public router: NavController,
+    public dashboard: DashboardService,
+    private authService: AuthService) {}
 
   ngOnInit() {
     this.loadDashboard();
-  }
-
+  } 
+  
   loadDashboard() {
     this.dashboard.findAll().subscribe(response => {
       this.items = response;
       console.log(response);
     },
-      error => {});
+      error => { });
   }
 
 
   contas(mes: string) {
-    //this.navCtrl.push('ProdutosPage', {categoria_id: categoria_id});  
+    //this.router.push('ProdutosPage', {categoria_id: categoria_id});  
     console.log(mes);
   }
 

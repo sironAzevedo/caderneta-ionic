@@ -3,11 +3,13 @@ import { StorageService } from './storage.service';
 import { HttpClient } from '@angular/common/http';
 import { CredenciaisDTO, LocalUser, AuthResponse } from '../models/interfaces';
 import { API_CONFIG } from './config/api.config';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
+
+    authenticationState = new BehaviorSubject(false);
 
     constructor(
         public http: HttpClient,
@@ -40,14 +42,19 @@ export class AuthService {
             token: tok,
             email: null //this.jwtHelper.decodeToken(tok).sub
         };
-        this.storage.setLocalUser(user); 
+        this.storage.setLocalUser(user);
+        this.authenticationState.next(true);
     }
 
     isAuthenticated() {
-        return API_CONFIG.authSubject.value;
+        if(this.storage.getLocalUser().token){
+            return true;
+        } 
+        return false;
     }
 
     logout() {
         this.storage.setLocalUser(null);
+        this.authenticationState.next(false);
     }
 }

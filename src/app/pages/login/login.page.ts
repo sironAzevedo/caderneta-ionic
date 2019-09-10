@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
     public router: NavController,
     public menu: MenuController,
     private loadingCtrl: LoadingController,
-    private authService: AuthService,) { }
+    private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -26,13 +26,13 @@ export class LoginPage implements OnInit {
 
     try {
       this.authService.authenticate(this.user).subscribe(); 
-    } catch (error) {} 
-    finally{
       this.router.navigateRoot('/dashboard');
+    } catch (error) {} 
+    finally{ 
       this.loading.dismiss();
     }
   }
-
+  
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }
