@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardService } from './services/domain/dashboard.service';
 import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
 import { StorageService } from './services/storage.service';
+import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { StorageService } from './services/storage.service';
     DashboardService,
     StorageService,
     ErrorInterceptorProvider,
+    AuthInterceptorProvider,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
