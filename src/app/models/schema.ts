@@ -1,4 +1,4 @@
-export interface Dashboard {
+export interface DashboardDTO {
     codigo: string;
     mes: string;
     ano: string;
@@ -8,7 +8,7 @@ export interface Dashboard {
     saldoFinal: string;
 }
 
-export interface TipoConta {
+export interface TipoContaDTO {
     codigo: string;
     tipo: string;
     descricao: string;

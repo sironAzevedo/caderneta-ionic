@@ -1,20 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { RequestOptions } from 'http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Dashboard, TipoConta } from 'src/app/models/schema';
+import { DashboardDTO, TipoContaDTO } from 'src/app/models/schema';
 import { API_CONFIG } from '../config/api.config';
 
 @Injectable()
 export class DashboardService {
 
-    private headers: Headers;
-    private options: RequestOptions;
 
-    constructor(public http: HttpClient) {}
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT',
+            'Access-Control-Allow-Credentials':'false',
+        })
+    };
 
-    findAll() : Observable<TipoConta[]>  {
-        return this.http.get<TipoConta[]>(`${API_CONFIG.baseUrl}/v1/tipoContas`);
+    constructor(public http: HttpClient) { }
+
+
+
+    findAll(): Observable<TipoContaDTO[]> {
+        return this.http.get<TipoContaDTO[]>(`${API_CONFIG.baseUrl}/v1/tipoContas`);
     }
 }
 
