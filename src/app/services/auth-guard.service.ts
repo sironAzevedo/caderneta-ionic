@@ -13,11 +13,7 @@ export class AuthGuardService implements CanActivate {
         public router: NavController
     ) { }
 
-    canActivate(): Observable<boolean> {
-        return this.auth.isAuthenticated();
-    }
-
-    /* canActivate(): Promise<boolean> {
+    canActivate(): Promise<boolean> {
         return new Promise(resolve => {
             this.auth.isAuthenticated().subscribe(state => {
                 if (!state) {
@@ -26,5 +22,5 @@ export class AuthGuardService implements CanActivate {
                 resolve(state ? true : false);
             })
         });
-    } */
+    }
 }

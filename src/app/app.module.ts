@@ -1,21 +1,21 @@
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { DashboardService } from './services/domain/dashboard.service';
-import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
-import { StorageService } from './services/storage.service';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
+import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { AuthService } from './services/auth.service';
-import { ContaListPageModule } from './pages/pages-contas/conta-list/conta-list.module';
+import { ContaService } from './services/domain/conta.service';
+import { DashboardService } from './services/domain/dashboard.service';
+import { StorageService } from './services/storage.service';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,12 +26,13 @@ import { ContaListPageModule } from './pages/pages-contas/conta-list/conta-list.
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
-    ContaListPageModule
+    /* ContaListPageModule */
   ],
   providers: [
     StatusBar,
     SplashScreen,
     DashboardService,
+    ContaService,
     StorageService,
     AuthService,
     ErrorInterceptorProvider,

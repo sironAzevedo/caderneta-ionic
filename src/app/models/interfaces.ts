@@ -25,12 +25,6 @@ export interface DashboardDTO {
     saldoFinal: string;
 }
 
-export interface TipoContaDTO {
-    codigo: string;
-    tipo: string;
-    descricao: string;
-}
-
 export interface LocalUser {
     token: string;
     email: string;
@@ -39,4 +33,31 @@ export interface LocalUser {
 export interface FieldMessage {
     fieldName: string;
     message: string;
-} 
+}
+
+export interface ContaDTO {
+    codigo?: string;
+    valorConta: string;
+    dataVencimento: string;
+    dataPagamento: string;
+    comentario?: string;
+    mesSalario: MesSalarioDTO;
+    tipoConta: TipoContaDTO;
+}
+
+export interface MesSalarioDTO {
+    codigo?: string;
+    valorSalario?: string;
+    mes: MesDTO;
+}
+
+export interface TipoContaDTO {
+    codigo: string;
+    tipo: string;
+    descricao: string;
+}
+
+export interface MesDTO {
+    codigo?: string;
+    dsMes: string;
+}

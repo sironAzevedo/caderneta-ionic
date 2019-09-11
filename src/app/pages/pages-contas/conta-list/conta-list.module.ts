@@ -22,8 +22,8 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [ContaListPage],
-  entryComponents: [
+  /* entryComponents: [
     ContaListPage
-  ]
+  ] */
 })
 export class ContaListPageModule { }

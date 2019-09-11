@@ -1,6 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingController, NavController, ToastController } from '@ionic/angular';
+import { ContaDTO } from 'src/app/models/interfaces';
 import { API_CONFIG } from 'src/app/services/config/api.config';
+import { ContaService } from 'src/app/services/domain/conta.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-conta-list',
@@ -10,25 +14,71 @@ import { API_CONFIG } from 'src/app/services/config/api.config';
 export class ContaListPage implements OnInit {
 
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
+  private id_mes: string = null;
+  public items = new Array<ContaDTO>();
+  private loading: any;
 
-  @Input() firstName: string;
-  @Input() lastName: string;
-  @Input() middleInitial: string;
-  @Input() id_mes: string;
-
-  constructor(public navParams: NavParams, public modalCtrl: ModalController) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private navCtrl: NavController,
+    private loadingCtrl: LoadingController,
+    private contaService: ContaService,
+    private toastCtrl: ToastController
+  ) { }
 
   ngOnInit() {
-    console.log(this.navParams.get('firstName'));
-    console.log(this.navParams.get('id_mes'));
+    this.route.queryParams.subscribe(() => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.id_mes = this.router.getCurrentNavigation().extras.state.mes;
+      }
+    });
+
+    this.loadContas();
   }
 
-  closeModal() {
-    this.modalCtrl.dismiss();
+  async goBack() {
+    this.navCtrl.navigateBack('/dashboard');
   }
 
-  addConta(){
-     console.log("Nova conta");
+  async loadContas() {
+    await this.contaService.buscarContasPorMes(this.id_mes).subscribe(items => {
+      this.items = items;
+      console.log(items);
+    },
+      error => { });
+  }
+
+  addConta() {
+    console.log("Nova conta");
+  }
+
+  async deletarConta(id: string) {
+    console.log("deletar conta");
+    await this.presentLoading();
+    await this.contaService.deletarConta(id)
+      .pipe(finalize(() => this.loading.dismiss()))
+      .subscribe(() => {
+        this.loadContas();
+      },
+        error => { });
+  }
+
+
+  async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message, duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingCtrl.create({
+      spinner: 'bubbles',
+      message: 'Aguarde...'
+    });
+
+    return this.loading.present();
   }
 
 }

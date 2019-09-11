@@ -11,25 +11,27 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
-    /* ,    canActivate: [LoggedGuardService] */
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
+    canActivate: [LoggedGuardService]
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule)
-    /* ,    canActivate: [AuthGuardService] */
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
   },
   { 
-    path: 'conta-list', 
-    loadChildren: () => import('./pages/pages-contas/conta-list/conta-list.module').then(m => m.ContaListPageModule)
+    path: 'contas', 
+    loadChildren: () => import('./pages/pages-contas/conta-list/conta-list.module').then(m => m.ContaListPageModule),
+    canActivate: [AuthGuardService]
   },
   { 
-    path: 'conta-detail', 
-    loadChildren: () => import('./pages/pages-contas/conta-detail/conta-detail.module').then(m => m.ContaDetailPageModule)
+    path: 'conta', 
+    loadChildren: () => import('./pages/pages-contas/conta-detail/conta-detail.module').then(m => m.ContaDetailPageModule),
+    canActivate: [AuthGuardService]
   }
 
 ];

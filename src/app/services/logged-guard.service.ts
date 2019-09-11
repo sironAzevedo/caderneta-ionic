@@ -12,19 +12,14 @@ export class LoggedGuardService implements CanActivate {
         public auth: AuthService,
         public router: NavController) { }
 
-    canActivate(): Observable<boolean> {
-        return this.auth.isAuthenticated();
-    }
-
-    /* canActivate(): Promise<boolean> {
+    canActivate(): Promise<boolean> {
         return new Promise(resolve => {
             this.auth.isAuthenticated().subscribe(state => {
                 if (state) {
-                    console.log(state);
                     this.router.navigateRoot('/dashboard');
                 }
                 resolve(!state ? true : false);
             })
         });
-    } */
+    }
 }

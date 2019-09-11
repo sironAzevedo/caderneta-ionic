@@ -1,10 +1,14 @@
-ion-title {
-  background-color: blue; 
-}
+ion-header {
+  ion-toolbar {
+    ion-buttons {
+      z-index: 100;
+    }
 
-h1 {
-  text-align: center; 
-  color: aliceblue;
-  font-family: Arial;
-  font-weight: bold;
+    ion-title { 
+      text-align: center;
+      color: black;
+      font-family: Arial;
+      font-weight: bold; 
+    }
+  }
 }
