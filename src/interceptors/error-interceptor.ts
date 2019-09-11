@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, throwError } from "rxjs";
 import { catchError } from 'rxjs/operators';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 import { FieldMessage } from 'src/app/models/interfaces';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-    constructor(public storage: StorageService, public alertController: AlertController) {
+    constructor(
+        public storage: StorageService,
+        public alertController: AlertController,
+        public router: NavController) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -61,6 +64,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     async handle403() {
         await this.storage.setLocalUser(null);
+        this.router.navigateBack('/login');
     }
 
     async handle422(error) {

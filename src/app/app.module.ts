@@ -15,6 +15,7 @@ import { StorageService } from './services/storage.service';
 import { IonicStorageModule } from '@ionic/storage';
 import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
 import { AuthService } from './services/auth.service';
+import { ContaListPageModule } from './pages/pages-contas/conta-list/conta-list.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,8 @@ import { AuthService } from './services/auth.service';
     HttpClientModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    ContaListPageModule
   ],
   providers: [
     StatusBar,
