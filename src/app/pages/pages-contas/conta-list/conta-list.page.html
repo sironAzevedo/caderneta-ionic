@@ -1,13 +1,28 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Contas</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="closeModal()">Close</ion-button>
-    </ion-buttons>
+<ion-header translucent>
+  <ion-toolbar>  
+    <ion-title>
+      <h1>CONTAS</h1>
+    </ion-title> 
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
+  <ion-fab horizontal="start" vertical="top" slot="fixed" edge>
+    <ion-fab-button (click)="addConta()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab horizontal="end" vertical="top" slot="fixed" edge>
+    <ion-fab-button (click)="closeModal()">
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <p></p>
+  <p></p>
+  <p></p>
+  <p></p>
   <ion-list>
     <ion-item>
       <ion-avatar slot="start">

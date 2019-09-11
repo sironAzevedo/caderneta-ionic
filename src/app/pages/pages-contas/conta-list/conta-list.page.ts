@@ -27,4 +27,8 @@ export class ContaListPage implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+  addConta(){
+     console.log("Nova conta");
+  }
+
 }
