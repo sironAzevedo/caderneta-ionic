@@ -4,6 +4,7 @@ import { DashboardDTO } from '../../models/interfaces';
 import { API_CONFIG } from '../../services/config/api.config';
 import { DashboardService } from '../../services/domain/dashboard.service';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -12,7 +13,7 @@ import { DashboardService } from '../../services/domain/dashboard.service';
 export class DashboardPage implements OnInit {
 
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
-  items: DashboardDTO[];
+  public items = new Array<DashboardDTO>();
 
   constructor(
     public router: Router,

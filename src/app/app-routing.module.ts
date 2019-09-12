@@ -20,18 +20,22 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
-  },
-  { 
-    path: 'contas', 
+    path: 'contas',
     loadChildren: () => import('./pages/pages-contas/conta-list/conta-list.module').then(m => m.ContaListPageModule),
     canActivate: [AuthGuardService]
   },
-  { 
-    path: 'conta', 
+  {
+    path: 'conta',
     loadChildren: () => import('./pages/pages-contas/conta-detail/conta-detail.module').then(m => m.ContaDetailPageModule),
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'cadastro',
+    loadChildren: () => import('./pages/usuario/cadastro/cadastro.module').then(m => m.CadastroPageModule)
+  },
+  {
+    path: 'logout',
+    loadChildren: () => import('./pages/usuario/logout/logout.module').then(m => m.LogoutPageModule)
   }
 
 ];

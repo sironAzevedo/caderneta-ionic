@@ -11,8 +11,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     constructor(
         public storage: StorageService,
-        public alertController: AlertController,
-        public router: NavController) {
+        public alertController: AlertController) {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -64,7 +63,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     async handle403() {
         await this.storage.setLocalUser(null);
-        this.router.navigateBack('/login');
     }
 
     async handle422(error) {

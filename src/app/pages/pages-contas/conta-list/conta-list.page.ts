@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, NavController, ToastController } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
 import { ContaDTO } from 'src/app/models/interfaces';
 import { API_CONFIG } from 'src/app/services/config/api.config';
 import { ContaService } from 'src/app/services/domain/conta.service';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-conta-list',

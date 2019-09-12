@@ -7,12 +7,12 @@ export interface AuthResponse {
     token: string
 }
 
-export interface UsuarioDTO {
+export class UsuarioDTO {
     codigo?: string;
-    nome: string,
-    sobreNome: string,
-    email: string,
-    senha: string
+    nome: string;
+    sobreNome: string;
+    email: string;
+    senha: string;
 }
 
 export interface DashboardDTO {

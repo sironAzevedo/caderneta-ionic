@@ -54,14 +54,14 @@ export class AuthService {
         const jwt = this.storage.getLocalUser();
         if (jwt && !this.jwtHelper.isTokenExpired(jwt.token)) {
             this.authenticationState.next(true);
-            return of(this.authenticationState.value);
+        } else {
+            this.authenticationState.next(false);
         }
         return of(this.authenticationState.value);
     }
 
     logout() {
         this.storage.setLocalUser(null);
-        this.router.navigateForward('/login');
-        this.authenticationState.next(false);
+        this.router.navigateRoot('/login');
     }
 }

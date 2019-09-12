@@ -17,7 +17,7 @@ export class LoggedGuardService implements CanActivate {
             this.auth.isAuthenticated().subscribe(state => {
                 if (state) {
                     this.router.navigateRoot('/dashboard');
-                }
+                } 
                 resolve(!state ? true : false);
             })
         });

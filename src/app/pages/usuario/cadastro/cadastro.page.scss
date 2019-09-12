@@ -1,20 +1,10 @@
 ion-header {
   ion-toolbar {
-    ion-buttons {
-      z-index: 100;
-    }
-
     ion-title {
       text-align: center;
       color: black;
       font-family: Arial;
       font-weight: bold;
     }
-  }
-}
-
-ion-content {
-  h2 {
-    text-align: center;
   }
 }

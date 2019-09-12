@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fecharModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="formGroup">
+    <ion-item>
+      <ion-label stacked>Nome*:</ion-label>
+      <ion-input formControlName="nome" type="text"></ion-input>
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls?.nome?.dirty && formGroup.controls?.nome?.errors" margin-left>Valor inválido</p>
+    <ion-item>
+      <ion-label stacked>Sobrenome: </ion-label>
+      <ion-input formControlName="sobreNome" type="text"></ion-input>
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.sobreNome.dirty && formGroup.controls.sobreNome.errors" margin-left>Valor inválido</p>
+    <ion-item>
+      <ion-label stacked>Email*: </ion-label>
+      <ion-input formControlName="email" type="text"></ion-input>
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p>
+    <ion-item>
+      <ion-label stacked>Senha*: </ion-label>
+      <ion-input formControlName="senha" type="password"></ion-input>
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.senha.dirty && formGroup.controls.senha.errors" margin-left>Valor inválido</p>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" (click)="registar()" [disabled]="!formGroup.valid">Criar Conta</ion-button>
+  </ion-toolbar>
+</ion-footer>

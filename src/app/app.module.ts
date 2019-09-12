@@ -10,9 +10,11 @@ import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
 import { ErrorInterceptorProvider } from 'src/interceptors/error-interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CadastroPageModule } from './pages/usuario/cadastro/cadastro.module';
 import { AuthService } from './services/auth.service';
 import { ContaService } from './services/domain/conta.service';
 import { DashboardService } from './services/domain/dashboard.service';
+import { UsuarioService } from './services/domain/usuario.service';
 import { StorageService } from './services/storage.service';
 
 
@@ -26,6 +28,7 @@ import { StorageService } from './services/storage.service';
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
+    CadastroPageModule
     /* ContaListPageModule */
   ],
   providers: [
@@ -35,6 +38,7 @@ import { StorageService } from './services/storage.service';
     ContaService,
     StorageService,
     AuthService,
+    UsuarioService,
     ErrorInterceptorProvider,
     AuthInterceptorProvider,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

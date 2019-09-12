@@ -13,14 +13,19 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   public appPages = [
     {
+      title: 'Profile',
+      url: '/cadastro',
+      icon: 'person'
+    },
+    {
       title: 'Dashboard',
       url: '/dashboard',
       icon: 'list'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Logout',
+      url: '/logout',
+      icon: 'power'
     }
   ];
 
@@ -40,16 +45,5 @@ export class AppComponent {
       this.splashScreen.hide();
       //this.verifyLogin();
     });
-  }
-
-
-  async verifyLogin() {
-    await this.auth.isAuthenticated().subscribe(state => {
-      if (state) {
-        this.router.navigateRoot('/dashboard');
-      } else{
-        this.router.navigateBack('/login');
-      }
-    })
   }
 }
