@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-
-import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { NavController, Platform } from '@ionic/angular';
 import { AuthService } from './services/auth.service';
+import { API_CONFIG } from './services/config/api.config';
+
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,10 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  bucketUrl: string = API_CONFIG.bucketBaseUrl;
+  profileImage;
+
   public appPages = [
     {
       title: 'Profile',
@@ -37,6 +42,7 @@ export class AppComponent {
     public router: NavController
   ) {
     this.initializeApp();
+    this.profileImage = 'assets/imgs/avatar-blank.jpg';
   }
 
   initializeApp() {

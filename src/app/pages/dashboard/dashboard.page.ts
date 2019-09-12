@@ -31,7 +31,6 @@ export class DashboardPage implements OnInit {
       error => { });
   }
 
-
   async contas(mes: string) {
     let params: NavigationExtras = {
       state: {
@@ -39,5 +38,9 @@ export class DashboardPage implements OnInit {
       }
     }
     await this.router.navigate(['/contas'], params);
+  }
+
+  async addConta() {
+    await this.router.navigate(['/conta']);
   }
 }
