@@ -4,39 +4,39 @@ import { DashboardDTO } from '../../models/interfaces';
 import { API_CONFIG } from '../../services/config/api.config';
 import { DashboardService } from '../../services/domain/dashboard.service';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
-  styleUrls: ['./dashboard.page.scss'],
+  styleUrls: ['./dashboard.page.scss']
 })
 export class DashboardPage implements OnInit {
-
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
   public items = new Array<DashboardDTO>();
 
-  constructor(
-    public router: Router,
-    public dashboard: DashboardService) { }
+  constructor(public router: Router, public dashboard: DashboardService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.loadDashboard();
   }
 
   loadDashboard() {
-    this.dashboard.findAll().subscribe(response => {
-      this.items = response;
-      console.log(response);
-    },
-      error => { });
+    this.dashboard.findAll().subscribe(
+      response => {
+        this.items = response;
+        console.log(response);
+      },
+      error => {}
+    );
   }
 
-  async contas(mes: string) {
-    let params: NavigationExtras = {
+  async contas(m: string) {
+    const params: NavigationExtras = {
       state: {
-        mes: mes
+        mes: m
       }
-    }
+    };
     await this.router.navigate(['/contas'], params);
   }
 

@@ -1,56 +1,42 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Dashboard</ion-title>
+    <ion-title text-capitalize>dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
+<ion-content>
+  <br />
+  <app-list-skeleton [items]="items"></app-list-skeleton>
 
-  <ion-fab vertical="top" horizontal="end" slot="fixed" edge>
+  <ion-list>
+    <ion-card *ngFor="let item of items" (click)="contas(item.codigo)">
+
+      <ion-item color="secondary">
+        <ion-icon slot="start" name="card"></ion-icon>
+        <ion-card-title text-capitalize color="light">{{ item.mes }} / {{ item.ano }}</ion-card-title>
+      </ion-item>
+
+      <ion-card-content>
+        <p>Salario: R$ {{ item.salario }}</p>
+        <p>Quantidade de Contas: {{ item.qtdConta }}</p>
+        <p>Total de Gastos: R$ {{ item.totalGastos }}</p>
+        <p>Saldo Final: R$ {{ item.saldoFinal }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addConta()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
-  <div *ngIf="!items.length">
-
-    <ion-text color="primary">
-      <h2>Adicione uma Conta</h2>
-    </ion-text>
-
-    <ion-list>
-      <ion-item *ngFor="let item of [0, 1, 2, 3, 4]">
-        <ion-thumbnail slot="start">
-          <ion-skeleton-text animated></ion-skeleton-text>
-        </ion-thumbnail>
-        <ion-label>
-          <h3>
-            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-          </h3>
-          <p>
-            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-          </p>
-          <p>
-            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-          </p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
-  <ion-list>
-    <ion-card *ngFor="let item of items" (click)="contas(item.codigo)">
-      <ion-item>
-        <ion-label>
-          {{ item.mes }}/{{ item.ano }}
-          <p>Salario: {{ item.salario }}</p>
-          <p>Quantidade de Contas: {{ item.qtdConta }}</p>
-          <p>Total de Gastos: {{ item.totalGastos }}</p>
-          <p>Saldo Final: {{ item.saldoFinal }}</p>
-        </ion-label>
-      </ion-item>
-    </ion-card>
-  </ion-list>
 </ion-content>
+
+<ion-footer no-border>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -16,8 +16,7 @@ import { ContaService } from './services/domain/conta.service';
 import { DashboardService } from './services/domain/dashboard.service';
 import { UsuarioService } from './services/domain/usuario.service';
 import { StorageService } from './services/storage.service';
-
-
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +27,8 @@ import { StorageService } from './services/storage.service';
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
-    CadastroPageModule
+    CadastroPageModule,
+    SharedModule
     /* ContaListPageModule */
   ],
   providers: [

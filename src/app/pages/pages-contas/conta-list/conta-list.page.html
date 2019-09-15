@@ -1,48 +1,14 @@
-<ion-header translucent>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">
-        <ion-icon name="arrow-round-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-title> CONTAS </ion-title>
-
-    <ion-buttons slot="end">
-      <ion-button (click)="addConta()">
-        <ion-icon name="add-circle"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="contas"></app-header>
 
 <ion-content fullscreen>
 
-  <ion-list *ngIf="!items.length">
-    <ion-item *ngFor="let item of [0, 1, 2]">
-      <ion-avatar slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-avatar>
-      <ion-label>
-        <h3>
-          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-        </h3>
-        <p>
-          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-        </p>
-        <p>
-          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
-        </p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-
+  <app-list-skeleton [items]="items"></app-list-skeleton>
 
   <ion-list>
     <ion-item-sliding *ngFor="let item of items">
       <ion-item>
         <ion-avatar slot="start">
-            <img src="{{bucketUrl}}/tipo-conta/tc{{item.tipoConta.codigo}}.jpg">
+          <img src="{{bucketUrl}}/tipo-conta/tc{{item.tipoConta.codigo}}.jpg">
         </ion-avatar>
 
         <ion-label>
@@ -61,4 +27,17 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addConta()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+
+
+<ion-footer no-border>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-footer>
