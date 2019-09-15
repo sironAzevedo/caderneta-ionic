@@ -1,20 +1,23 @@
-import { ListSkeletonComponent } from './list-skeleton/list-skeleton.component';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
+import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { HeaderComponent } from './header/header.component';
+import { ListSkeletonComponent } from './list-skeleton/list-skeleton.component';
+import { MaterialDesignModule } from './material-design/material.module';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    ListSkeletonComponent
+    ListSkeletonComponent    
   ],
   exports: [
     HeaderComponent,
-    ListSkeletonComponent
+    ListSkeletonComponent,
+    MaterialDesignModule
   ],
   imports: [
     CommonModule,
+    MaterialDesignModule,
     IonicModule.forRoot()
   ]
 })

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { UsuarioDTO } from 'src/app/models/interfaces';
 import { UsuarioService } from './../../../services/domain/usuario.service';
@@ -8,22 +8,21 @@ import { UsuarioService } from './../../../services/domain/usuario.service';
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.page.html',
-  styleUrls: ['./cadastro.page.scss'],
+  styleUrls: ['./cadastro.page.scss']
 })
 export class CadastroPage implements OnInit {
-
   formGroup: FormGroup;
   private loading: any;
   public user: UsuarioDTO = new UsuarioDTO();
-  addCan: boolean = false;
+  addCan = false;
 
   constructor(
     public modalController: ModalController,
     public formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController
-  ) { }
+    public alertCtrl: AlertController
+  ) {}
 
   ngOnInit() {
     this.validFields();
@@ -33,9 +32,8 @@ export class CadastroPage implements OnInit {
     this.formGroup = this.formBuilder.group({
       codigo: [''],
       nome: ['', Validators.required],
-      sobreNome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required]],
+      senha: ['', [Validators.required]]
     });
   }
 
@@ -49,19 +47,18 @@ export class CadastroPage implements OnInit {
     const user: UsuarioDTO = {
       codigo: formValue.codigo,
       nome: formValue.nome,
-      sobreNome: formValue.sobreNome,
       email: formValue.email,
       senha: formValue.senha
-    }
+    };
 
-    await this.usuarioService.criarConta(user)
-      .pipe(finalize(() => {
-        this.presentToast("Conta Criada com sucesso");
-        this.fecharModal();
-      }
-      ))
-      .subscribe(() => { },
-        error => { });
+    await this.usuarioService
+      .criarConta(user)
+      .pipe(
+        finalize(() => {
+          this.showInsertOk();
+        })
+      )
+      .subscribe(() => {}, error => {});
   }
 
   async presentLoading() {
@@ -73,11 +70,19 @@ export class CadastroPage implements OnInit {
     return this.loading.present();
   }
 
-  async presentToast(message: string) {
-    const toast = await this.toastCtrl.create({
-      message,
-      duration: 2000
+  async showInsertOk() {
+    const alert = await this.alertCtrl.create({
+      header: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.fecharModal();
+          }
+        }
+      ]
     });
-    toast.present();
+    await alert.present();
   }
 }

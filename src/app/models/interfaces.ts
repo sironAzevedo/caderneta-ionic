@@ -1,16 +1,15 @@
 export interface CredenciaisDTO {
-    email?: string,
-    senha?: string
+    email?: string;
+    senha?: string;
 }
 
 export interface AuthResponse {
-    token: string
+    token: string;
 }
 
 export class UsuarioDTO {
     codigo?: string;
     nome: string;
-    sobreNome: string;
     email: string;
     senha: string;
 }
@@ -39,7 +38,9 @@ export interface ContaDTO {
     codigo?: string;
     valorConta: string;
     dataVencimento: string;
-    dataPagamento: string;
+    dataPagamento?: string;
+    status: string;
+    qtdParcelas?: string;
     comentario?: string;
     mesSalario: MesSalarioDTO;
     tipoConta: TipoContaDTO;
