@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import {
+  AlertController,
+  LoadingController,
+  ModalController
+} from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { UsuarioDTO } from 'src/app/models/interfaces';
 import { UsuarioService } from './../../../services/domain/usuario.service';
@@ -42,8 +46,11 @@ export class CadastroPage implements OnInit {
   }
 
   async registar() {
+    await this.presentLoading();
+
     this.addCan = true;
     const formValue = this.formGroup.value;
+
     const user: UsuarioDTO = {
       codigo: formValue.codigo,
       nome: formValue.nome,
@@ -51,14 +58,18 @@ export class CadastroPage implements OnInit {
       senha: formValue.senha
     };
 
-    await this.usuarioService
+    this.usuarioService
       .criarConta(user)
-      .pipe(
-        finalize(() => {
+      .pipe(finalize(() => this.loading.dismiss()))
+      .subscribe((res) => {
+        if (res) {
           this.showInsertOk();
-        })
-      )
-      .subscribe(() => {}, error => {});
+        }
+      },
+        error => {
+          this.addCan = false;
+        }
+      );
   }
 
   async presentLoading() {

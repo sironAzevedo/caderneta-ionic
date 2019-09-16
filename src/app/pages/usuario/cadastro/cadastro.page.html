@@ -31,6 +31,6 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="block" (click)="registar()" [disabled]="!formGroup.valid">Criar Conta</ion-button>
+    <ion-button expand="block" (click)="registar()" [disabled]="!formGroup.valid || addCan">Criar Conta</ion-button>
   </ion-toolbar>
 </ion-footer>

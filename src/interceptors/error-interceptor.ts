@@ -76,8 +76,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   async handleDefaultEror(error) {
     const alert = await this.alertController.create({
-      header: 'Erro ' + error.status + ': ' + error.error,
-      message: error.message,
+      header: 'Erro ' + error.status,
+      message: error.mensagem,
       buttons: ['OK']
     });
     await alert.present();

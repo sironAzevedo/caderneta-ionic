@@ -7,33 +7,34 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class UsuarioService {
+  constructor(public http: HttpClient) {}
 
-    constructor(public http: HttpClient) { }
+  criarConta(user: UsuarioDTO): Observable<any> {
+    return this.http.post<any>(`${API_CONFIG.baseUrl}/v1/user`, user).pipe(
+      tap((res: any) => {
+        return res;
+      })
+    );
+  }
 
+  atualizarConta(user: UsuarioDTO): Observable<any> {
+    return this.http.put<any>(`${API_CONFIG.baseUrl}/v1/user`, user).pipe(
+        tap((res: any) => {
+          return res;
+        })
+      );
+  }
 
-    criarConta(user: UsuarioDTO): Observable<any> {
-        return this.http.post<any>(`${API_CONFIG.baseUrl}/v1/user`, user);
-    }
+  findByEmail(email: string): Observable<UsuarioDTO> {
+    return this.http.get<UsuarioDTO>(`${API_CONFIG.baseUrl}/user/email?value=${email}`);
+  }
 
-    atualizarConta(user: UsuarioDTO): Observable<any> {
-        return this.http.put<any>(`${API_CONFIG.baseUrl}/v1/user`, user);
-    }
+  getImageFromBucket(id: string): Observable<any> {
+    const url = `${API_CONFIG.bucketBaseUrl}/avatar/cp${id}.jpg`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
 
-    findByEmail(email: string) {
-        return this.http.get(`${API_CONFIG.baseUrl}/user/email?value=${email}`);
-    }
-
-    getImageFromBucket(id: string): Observable<any> {
-        let url = `${API_CONFIG.bucketBaseUrl}/cp${id}.jpg`
-        return this.http.get(url, { responseType: 'blob' });
-    } 
-
-    buscarContasPorMes(mes: string): Observable<ContaDTO[]> {
-        return this.http.get<ContaDTO[]>(`${API_CONFIG.baseUrl}/v1/conta/mes?mes=${mes}`);
-    }
-
-    deletarConta(id: string): Observable<any> {
-        return this.http.delete<any>(`${API_CONFIG.baseUrl}/v1/conta?conta=${id}`);
-    }
+  deletarConta(id: string): Observable<any> {
+    return this.http.delete<any>(`${API_CONFIG.baseUrl}/v1/conta?conta=${id}`);
+  }
 }
-

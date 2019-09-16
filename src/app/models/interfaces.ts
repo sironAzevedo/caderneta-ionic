@@ -7,6 +7,10 @@ export interface AuthResponse {
     token: string;
 }
 
+export interface EmailDTO {
+    email: string;
+}
+
 export class UsuarioDTO {
     codigo?: string;
     nome: string;

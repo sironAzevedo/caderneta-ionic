@@ -4,7 +4,12 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { NavController } from '@ionic/angular';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap, catchError, retry } from 'rxjs/operators';
-import { AuthResponse, CredenciaisDTO, LocalUser } from '../models/interfaces';
+import {
+  AuthResponse,
+  CredenciaisDTO,
+  LocalUser,
+  EmailDTO
+} from '../models/interfaces';
 import { API_CONFIG } from './config/api.config';
 import { StorageService } from './storage.service';
 
@@ -21,7 +26,7 @@ export class AuthService {
 
   authenticate(user: CredenciaisDTO): Observable<AuthResponse> {
     return this.http.post(`${API_CONFIG.baseUrl}/login`, user).pipe(
-      retry(3),
+      retry(2),
       tap(async (res: AuthResponse) => {
         if (res.token) {
           this.successfulLogin(res.token);
@@ -35,15 +40,25 @@ export class AuthService {
     );
   }
 
-  refreshToken() {
-    return this.http.post(
-      `${API_CONFIG.baseUrl}/auth/refresh_token`,
-      {},
-      {
-        observe: 'response',
-        responseType: 'text'
-      }
-    );
+  forgot(email: EmailDTO): Observable<any> {
+    return this.http.post<any>(`${API_CONFIG.baseUrl}/auth/forgot`, email);
+  }
+
+  tokenRefresh(): Observable<AuthResponse> {
+    return this.http
+      .post<AuthResponse>(`${API_CONFIG.baseUrl}/auth/new_password`, {})
+      .pipe(
+        tap(async (res: AuthResponse) => {
+          if (res.token) {
+            this.successfulLogin(res.token);
+          }
+        }),
+        catchError(error => {
+          console.error('Mensagem: ' + error.message);
+          console.log('Mensagem: ' + error);
+          return of(error);
+        })
+      );
   }
 
   successfulLogin(authorizationValue: string) {

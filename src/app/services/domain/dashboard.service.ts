@@ -6,20 +6,9 @@ import { API_CONFIG } from '../config/api.config';
 
 @Injectable()
 export class DashboardService {
+  constructor(public http: HttpClient) {}
 
-
-    httpOptions = {
-        headers: new HttpHeaders({
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT',
-            'Access-Control-Allow-Credentials':'false',
-        })
-    };
-
-    constructor(public http: HttpClient) { } 
-
-    findAll(): Observable<DashboardDTO[]> {
-        return this.http.get<DashboardDTO[]>(`${API_CONFIG.baseUrl}/v1/dashboard`);
-    }
+  findAll(): Observable<DashboardDTO[]> {
+    return this.http.get<DashboardDTO[]>(`${API_CONFIG.baseUrl}/v1/dashboard`);
+  }
 }
-
