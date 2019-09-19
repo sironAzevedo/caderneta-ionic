@@ -1,6 +1,6 @@
 export interface CredenciaisDTO {
-    email?: string;
-    senha?: string;
+    email: string;
+    senha: string;
 }
 
 export interface AuthResponse {

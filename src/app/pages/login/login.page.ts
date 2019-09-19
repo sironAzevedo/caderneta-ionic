@@ -1,30 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, MenuController, ModalController, NavController } from '@ionic/angular';
+import {
+  LoadingController,
+  MenuController,
+  ModalController,
+  NavController
+} from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { myEnterAnimation } from 'src/app/shared/animations/enter';
 import { myLeaveAnimation } from 'src/app/shared/animations/leave';
 import { CredenciaisDTO } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { CadastroPage } from './../usuario/cadastro/cadastro.page';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss']
 })
+
 export class LoginPage implements OnInit {
   private loading: any;
-  public user: CredenciaisDTO = {};
+  isTextFieldType: boolean;
+
+  formGroup: FormGroup;
+  addCan = false;
 
   constructor(
     public router: NavController,
     public menu: MenuController,
     private loadingCtrl: LoadingController,
     private authService: AuthService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    public formBuilder: FormBuilder
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.validFields();
+  }
 
   ionViewWillEnter() {
     this.menu.get().then((menu: HTMLIonMenuElement) => {
@@ -38,14 +51,33 @@ export class LoginPage implements OnInit {
     });
   }
 
+  validFields() {
+    this.formGroup = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', [Validators.required]]
+    });
+  }
+
   async login() {
     await this.presentLoading();
+    this.addCan = true;
+
+    const formValue = this.formGroup.value;
+
+    const user: CredenciaisDTO = {
+      email: formValue.email,
+      senha: formValue.senha
+    };
+
     this.authService
-      .authenticate(this.user)
+      .authenticate(user)
       .pipe(finalize(() => this.loading.dismiss()))
-      .subscribe(() => {
-        this.router.navigateRoot('/dashboard');
-      }, error => { });
+      .subscribe(
+        () => {
+          this.router.navigateRoot('/dashboard');
+        },
+        error => {}
+      );
   }
 
   async registrar() {
@@ -67,5 +99,9 @@ export class LoginPage implements OnInit {
     });
 
     return this.loading.present();
+  }
+
+  togglePasswordFieldType() {
+    this.isTextFieldType = !this.isTextFieldType;
   }
 }

@@ -11,19 +11,21 @@
 
 <ion-content padding>
   <form [formGroup]="formGroup">
-    <ion-item>
-      <ion-label stacked>Nome*:</ion-label>
+    <ion-item> 
+      <ion-label position="inline">Nome <ion-text color="danger">*</ion-text></ion-label>
       <ion-input formControlName="nome" type="text"></ion-input>
     </ion-item>
     <p class="danger" *ngIf="formGroup.controls?.nome?.dirty && formGroup.controls?.nome?.errors" margin-left>Valor inválido</p>
     <ion-item>
-      <ion-label stacked>Email*: </ion-label>
-      <ion-input formControlName="email" type="text"></ion-input>
+      <ion-label position="inline">Email <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input formControlName="email" type="text" req></ion-input>
     </ion-item>
     <p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p>
     <ion-item>
-      <ion-label stacked>Senha*: </ion-label>
-      <ion-input formControlName="senha" type="password"></ion-input>
+      <ion-label position="inline">Senha <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input [type]="isTextFieldType ? 'text' : 'password'" formControlName="senha" type="password"></ion-input>
+      <ion-icon slot="end" (click)="togglePasswordFieldType()" [name]="isTextFieldType ? 'eye-off' : 'eye'">
+        </ion-icon>
     </ion-item>
     <p class="danger" *ngIf="formGroup.controls.senha.dirty && formGroup.controls.senha.errors" margin-left>Valor inválido</p>
   </form>

@@ -8,7 +8,7 @@ import { MaterialDesignModule } from './material-design/material.module';
 @NgModule({
   declarations: [
     HeaderComponent,
-    ListSkeletonComponent    
+    ListSkeletonComponent
   ],
   exports: [
     HeaderComponent,

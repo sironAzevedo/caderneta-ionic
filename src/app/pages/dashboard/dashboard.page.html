@@ -14,14 +14,14 @@
   <ion-list>
     <ion-card *ngFor="let item of items" (click)="contas(item.codigo)">
 
-      <ion-item color="secondary">
-        <ion-icon slot="start" name="card"></ion-icon>
+      <ion-item color="primary">
+        <ion-icon color="dark" slot="start" name="card"></ion-icon>
         <ion-card-title text-capitalize color="light">{{ item.mes }} / {{ item.ano }}</ion-card-title>
+        <ion-badge color="dark" slot="end">{{ item.qtdConta }}</ion-badge>
       </ion-item>
 
       <ion-card-content>
-        <p>Salario: R$ {{ item.salario }}</p>
-        <p>Quantidade de Contas: {{ item.qtdConta }}</p>
+        <p>Salario: R$ {{ item.salario }}</p> 
         <p>Total de Gastos: R$ {{ item.totalGastos }}</p>
         <p>Saldo Final: R$ {{ item.saldoFinal }}</p>
       </ion-card-content>

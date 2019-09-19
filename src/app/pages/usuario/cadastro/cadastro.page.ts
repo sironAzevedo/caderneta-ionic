@@ -19,6 +19,7 @@ export class CadastroPage implements OnInit {
   private loading: any;
   public user: UsuarioDTO = new UsuarioDTO();
   addCan = false;
+  isTextFieldType: boolean;
 
   constructor(
     public modalController: ModalController,
@@ -61,11 +62,12 @@ export class CadastroPage implements OnInit {
     this.usuarioService
       .criarConta(user)
       .pipe(finalize(() => this.loading.dismiss()))
-      .subscribe((res) => {
-        if (res) {
-          this.showInsertOk();
-        }
-      },
+      .subscribe(
+        res => {
+          if (res) {
+            this.showInsertOk();
+          }
+        },
         error => {
           this.addCan = false;
         }
@@ -95,5 +97,9 @@ export class CadastroPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  togglePasswordFieldType() {
+    this.isTextFieldType = !this.isTextFieldType;
   }
 }

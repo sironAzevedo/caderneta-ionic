@@ -2,7 +2,7 @@
 
 <ion-content>
 
-    <mat-accordion>
+    <!-- <mat-accordion>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -14,7 +14,7 @@
             </mat-expansion-panel-header>
             Panel Content
         </mat-expansion-panel>
-        
+
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -26,6 +26,21 @@
             </mat-expansion-panel-header>
             <p>I'm visible because I am open</p>
         </mat-expansion-panel>
-    </mat-accordion>
+    </mat-accordion> -->
+
+
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-checkbox>Check me!</mat-checkbox>
+
+    <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="1">Option 1</mat-radio-button>
+        <mat-radio-button value="2">Option 2</mat-radio-button>
+    </mat-radio-group>
+
 
 </ion-content>
