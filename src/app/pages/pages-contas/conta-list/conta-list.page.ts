@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import {
   LoadingController,
   NavController,
@@ -17,7 +17,7 @@ import { ContaService } from 'src/app/services/domain/conta.service';
 })
 export class ContaListPage implements OnInit {
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
-  private id_mes: string = null;
+  private mesId: string;
   public items = new Array<ContaDTO>();
   private loading: any;
 
@@ -33,25 +33,31 @@ export class ContaListPage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.id_mes = this.router.getCurrentNavigation().extras.state.mes;
+        this.mesId = this.router.getCurrentNavigation().extras.state.mes;
       }
     });
+  }
 
+  ionViewWillEnter() {
     this.loadContas();
   }
 
   async loadContas() {
-    await this.contaService.buscarContasPorMes(this.id_mes).subscribe(
+    this.contaService.buscarContasPorMes(this.mesId).subscribe(
       items => {
         this.items = items;
-        console.log(items);
       },
       error => {}
     );
   }
 
   async addConta() {
-    await this.router.navigate(['/conta']);
+    const params: NavigationExtras = {
+      state: {
+        mes: this.mesId
+      }
+    };
+    await this.router.navigate(['/conta'], params);
   }
 
   async deletarConta(id: string) {

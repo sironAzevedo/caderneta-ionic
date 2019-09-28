@@ -13,7 +13,10 @@ export class DashboardPage implements OnInit {
   bucketUrl: string = API_CONFIG.bucketBaseUrl;
   public items = new Array<DashboardDTO>();
 
-  constructor(public router: Router, public dashboard: DashboardService) {}
+  constructor(
+    public router: Router,
+    public dashboard: DashboardService
+  ) {}
 
   ngOnInit() {}
 

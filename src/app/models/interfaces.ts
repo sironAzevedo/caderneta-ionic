@@ -43,11 +43,11 @@ export interface ContaDTO {
     valorConta: string;
     dataVencimento: string;
     dataPagamento?: string;
-    status: string;
+    status: StatusContaDTO;
     qtdParcelas?: string;
     comentario?: string;
-    mesSalario: MesSalarioDTO;
     tipoConta: TipoContaDTO;
+    mes: MesDTO;
 }
 
 export interface MesSalarioDTO {
@@ -58,11 +58,16 @@ export interface MesSalarioDTO {
 
 export interface TipoContaDTO {
     codigo: string;
-    tipo: string;
-    descricao: string;
+    tipo?: string;
+    descricao?: string;
 }
 
 export interface MesDTO {
     codigo?: string;
-    dsMes: string;
+    dsMes?: string;
+}
+
+export interface StatusContaDTO {
+    codigo: string;
+    descricao?: string;
 }

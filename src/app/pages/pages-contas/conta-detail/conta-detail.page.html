@@ -1,50 +1,49 @@
 <app-header titulo="nova conta"></app-header>
 
 <ion-content>
-    <form class="example-form">
+    <form [formGroup]="formGroup" class="example-form">
         <mat-form-field class="example-full-width">
-            <mat-select placeholder="Tipo de Conta">
-                <mat-option></mat-option>
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                    {{food.viewValue}}
+            <mat-select formControlName="tipoConta" placeholder="Tipo de Conta" required>                
+                <mat-option *ngFor="let tipo of tipoContas" [value]="tipo.codigo">
+                    {{tipo.descricao}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-            <input matInput placeholder="Valor da Conta*" value="">
+            <input matInput formControlName="valorConta" placeholder="Valor da Conta" (keypress)="inputKeyPressAsBrlCurrency($event)" required>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-            <input matInput [matDatepicker]="vencimento" placeholder="Data de Vencimento*">
+            <input matInput [matDatepicker]="vencimento" placeholder="Data de Vencimento" formControlName="dataVencimento" 
+            readonly="true" required>
             <mat-datepicker-toggle matSuffix [for]="vencimento"></mat-datepicker-toggle>
             <mat-datepicker #vencimento></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-            <input matInput [matDatepicker]="pagamento" placeholder="Data de Pagamento">
+            <input matInput [matDatepicker]="pagamento" placeholder="Data de Pagamento" formControlName="dataPagamento" readonly="true">
             <mat-datepicker-toggle matSuffix [for]="pagamento"></mat-datepicker-toggle>
             <mat-datepicker #pagamento></mat-datepicker>
         </mat-form-field>
 
-        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
-            <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
-                {{season}}
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="statusConta">
+            <mat-radio-button class="example-radio-button" *ngFor="let status of statusConta" [value]="status.codigo">
+                {{status.descricao}}
             </mat-radio-button>
-        </mat-radio-group> 
+        </mat-radio-group>
 
         <mat-form-field class="example-full-width">
-            <input matInput placeholder="Quantidade de Parcelas*" value="">
+            <input matInput type="number" placeholder="Quantidade de Parcelas" formControlName="qtdParcelas">
         </mat-form-field>
-        
+
         <mat-form-field class="example-full-width">
-            <textarea matInput placeholder="Comentario"></textarea>
+            <textarea matInput placeholder="Comentario" formControlName="comentario" matTextareaAutosize
+            matAutosizeMinRows="2" matAutosizeMaxRows="4"></textarea>
         </mat-form-field>
     </form>
-</ion-content>
 
-<ion-footer no-border>
-    <ion-toolbar>
-        <ion-title>BUTÃO</ion-title>
+    <ion-toolbar class="example-full-width">
+        <ion-button (click)="salvar()" [disabled]="!formGroup.valid || addCan" expand="block" shape="round">Salvar</ion-button>
     </ion-toolbar>
-</ion-footer>
+</ion-content>

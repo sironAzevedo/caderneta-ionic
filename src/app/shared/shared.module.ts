@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from './header/header.component';
 import { ListSkeletonComponent } from './list-skeleton/list-skeleton.component';
 import { MaterialDesignModule } from './material-design/material.module';
+import { DateFormatPipe } from './pipes/dateFormatPipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MaterialDesignModule } from './material-design/material.module';
     HeaderComponent,
     ListSkeletonComponent,
     MaterialDesignModule
-  ]
+  ],
+  providers: [DateFormatPipe]
 })
 export class SharedModule {}

@@ -10,19 +10,11 @@ export class UsuarioService {
   constructor(public http: HttpClient) {}
 
   criarConta(user: UsuarioDTO): Observable<any> {
-    return this.http.post<any>(`${API_CONFIG.baseUrl}/v1/user`, user).pipe(
-      tap((res: any) => {
-        return res;
-      })
-    );
+    return this.http.post<any>(`${API_CONFIG.baseUrl}/v1/user`, user);
   }
 
   atualizarConta(user: UsuarioDTO): Observable<any> {
-    return this.http.put<any>(`${API_CONFIG.baseUrl}/v1/user`, user).pipe(
-        tap((res: any) => {
-          return res;
-        })
-      );
+    return this.http.put<any>(`${API_CONFIG.baseUrl}/v1/user`, user);
   }
 
   findByEmail(email: string): Observable<UsuarioDTO> {

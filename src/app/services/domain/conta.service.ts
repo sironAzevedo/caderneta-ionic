@@ -1,19 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ContaDTO } from 'src/app/models/interfaces';
+import { tap } from 'rxjs/operators';
+import { StatusContaDTO, TipoContaDTO } from '../../models/interfaces';
 import { API_CONFIG } from '../config/api.config';
+import { ContaDTO } from './../../models/interfaces';
 
 @Injectable()
 export class ContaService {
   constructor(public http: HttpClient) {}
 
   salvarConta(conta: ContaDTO): Observable<any> {
-    return this.http.post<any>(`${API_CONFIG.baseUrl}/v1/conta`, conta);
+    return this.http.post<any>(`${API_CONFIG.baseUrl}/v1/conta`, conta).pipe(
+      tap((res: any) => {
+        return res;
+      })
+    );
   }
 
   atualizarConta(conta: ContaDTO): Observable<any> {
-    return this.http.put<any>(`${API_CONFIG.baseUrl}/v1/conta`, conta);
+    return this.http.put<any>(`${API_CONFIG.baseUrl}/v1/conta`, conta).pipe(
+      tap((res: any) => {
+        return res;
+      })
+    );
   }
 
   deletarConta(id: string): Observable<any> {
@@ -26,8 +36,12 @@ export class ContaService {
     );
   }
 
-  buscarStatusConta(): Observable<any[]> {
-    return this.http.get<any[]>(`${API_CONFIG.baseUrl}/v1/conta/status`);
+  statusConta(): Observable<StatusContaDTO[]> {
+    return this.http.get<StatusContaDTO[]>(`${API_CONFIG.baseUrl}/v1/conta/status`);
+  }
+
+  tipoContas(): Observable<TipoContaDTO[]> {
+    return this.http.get<TipoContaDTO[]>(`${API_CONFIG.baseUrl}/v1/tipo/contas`);
   }
 
 }
