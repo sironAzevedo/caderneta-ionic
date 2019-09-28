@@ -10,15 +10,15 @@ import { MaterialDesignModule } from './material-design/material.module';
     HeaderComponent,
     ListSkeletonComponent
   ],
-  exports: [
-    HeaderComponent,
-    ListSkeletonComponent,
-    MaterialDesignModule
-  ],
   imports: [
     CommonModule,
     MaterialDesignModule,
     IonicModule.forRoot()
+  ],
+  exports: [
+    HeaderComponent,
+    ListSkeletonComponent,
+    MaterialDesignModule
   ]
 })
 export class SharedModule {}

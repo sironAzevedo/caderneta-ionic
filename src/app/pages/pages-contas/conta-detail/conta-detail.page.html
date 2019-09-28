@@ -1,46 +1,50 @@
 <app-header titulo="nova conta"></app-header>
 
 <ion-content>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-select placeholder="Tipo de Conta">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
 
-    <!-- <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Personal data
-                </mat-panel-title>
-                <mat-panel-description>
-                    Type your name and age
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            Panel Content
-        </mat-expansion-panel>
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Valor da Conta*" value="">
+        </mat-form-field>
 
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Self aware panel
-                </mat-panel-title>
-                <mat-panel-description>
-                    Currently I am {{panelOpenState ? 'open' : 'closed'}}
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-    </mat-accordion> -->
+        <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="vencimento" placeholder="Data de Vencimento*">
+            <mat-datepicker-toggle matSuffix [for]="vencimento"></mat-datepicker-toggle>
+            <mat-datepicker #vencimento></mat-datepicker>
+        </mat-form-field>
 
+        <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="pagamento" placeholder="Data de Pagamento">
+            <mat-datepicker-toggle matSuffix [for]="pagamento"></mat-datepicker-toggle>
+            <mat-datepicker #pagamento></mat-datepicker>
+        </mat-form-field>
 
-    <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+            <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+                {{season}}
+            </mat-radio-button>
+        </mat-radio-group> 
 
-    <mat-checkbox>Check me!</mat-checkbox>
-
-    <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1">Option 1</mat-radio-button>
-        <mat-radio-button value="2">Option 2</mat-radio-button>
-    </mat-radio-group>
-
-
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Quantidade de Parcelas*" value="">
+        </mat-form-field>
+        
+        <mat-form-field class="example-full-width">
+            <textarea matInput placeholder="Comentario"></textarea>
+        </mat-form-field>
+    </form>
 </ion-content>
+
+<ion-footer no-border>
+    <ion-toolbar>
+        <ion-title>BUTÃO</ion-title>
+    </ion-toolbar>
+</ion-footer>
