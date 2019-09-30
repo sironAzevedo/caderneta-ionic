@@ -20,7 +20,7 @@ export class AppComponent {
     {
       title: 'Profile',
       url: '/cadastro',
-      icon: 'person'
+      icon: 'contacts'
     },
     {
       title: 'Dashboard',

@@ -12,6 +12,7 @@ import { CredenciaisDTO } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 import { CadastroPage } from './../usuario/cadastro/cadastro.page';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NavigationOptions } from '@ionic/angular/dist/providers/nav-controller';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,6 @@ export class LoginPage implements OnInit {
     public menu: MenuController,
     private loadingCtrl: LoadingController,
     private authService: AuthService,
-    public modalController: ModalController,
     public formBuilder: FormBuilder
   ) {}
 
@@ -81,15 +81,10 @@ export class LoginPage implements OnInit {
   }
 
   async registrar() {
-    await this.modalController
-      .create({
-        component: CadastroPage,
-        enterAnimation: myEnterAnimation,
-        leaveAnimation: myLeaveAnimation
-      })
-      .then(modal => {
-        modal.present();
-      });
+    const animated: NavigationOptions = {
+      animated: true
+    } 
+    this.router.navigateRoot('/cadastro', animated);
   }
 
   async presentLoading() {

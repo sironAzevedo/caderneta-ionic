@@ -30,7 +30,7 @@ export interface DashboardDTO {
 
 export interface LocalUser {
     token: string;
-    email: string;
+    email?: string;
 }
 
 export interface FieldMessage {

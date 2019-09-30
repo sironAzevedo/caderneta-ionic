@@ -18,7 +18,7 @@ export class UsuarioService {
   }
 
   findByEmail(email: string): Observable<UsuarioDTO> {
-    return this.http.get<UsuarioDTO>(`${API_CONFIG.baseUrl}/user/email?value=${email}`);
+    return this.http.get<UsuarioDTO>(`${API_CONFIG.baseUrl}/v1/user/email?email=${email}`);
   }
 
   getImageFromBucket(id: string): Observable<any> {
