@@ -1,6 +1,6 @@
 <app-header titulo="contas"></app-header>
 
-<ion-content fullscreen>
+<ion-content fullscreen [scrollEvents]="true" appHideFab>
 
   <app-list-skeleton [items]="items"></app-list-skeleton>
 
@@ -28,7 +28,7 @@
     </ion-item-sliding>
   </ion-list>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" right #fab>
     <ion-fab-button (click)="addConta()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

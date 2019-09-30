@@ -20,6 +20,7 @@ export class ContaDetailPage implements OnInit {
   formGroup: FormGroup;
   private loading: any;
   addCan = false;
+  inputParcelado = true;
   radioValue: string;
   private mesId: string;
 
@@ -51,7 +52,7 @@ export class ContaDetailPage implements OnInit {
       dataVencimento: ['', Validators.required],
       dataPagamento: [''],
       statusConta: ['', Validators.required],
-      qtdParcelas: [0],
+      qtdParcelas: [1, Validators.min(1)],
       comentario: ['']
     });
   }
@@ -138,6 +139,16 @@ export class ContaDetailPage implements OnInit {
       }
     };
     await this.router.navigate(['/contas'], params);
+  }
+
+  isParcelado(event: KeyboardEvent){
+    const formValue = this.formGroup.value;
+    if(formValue.statusConta === 4){
+      this.inputParcelado = false;
+    } else {
+      this.inputParcelado = true;
+    }
+
   }
 
   inputKeyPressAsBrlCurrency(event: KeyboardEvent) {

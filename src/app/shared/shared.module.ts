@@ -5,11 +5,13 @@ import { HeaderComponent } from './header/header.component';
 import { ListSkeletonComponent } from './list-skeleton/list-skeleton.component';
 import { MaterialDesignModule } from './material-design/material.module';
 import { DateFormatPipe } from './pipes/dateFormatPipe';
+import { HideFabDirective } from './directives/hide-fab.directive';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    ListSkeletonComponent
+    ListSkeletonComponent,
+    HideFabDirective
   ],
   imports: [
     CommonModule,

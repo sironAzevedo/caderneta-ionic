@@ -25,7 +25,7 @@ export class AppComponent {
     {
       title: 'Dashboard',
       url: '/dashboard',
-      icon: 'list'
+      icon: 'analytics'
     },
     {
       title: 'Logout',

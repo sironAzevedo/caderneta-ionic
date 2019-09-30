@@ -1,6 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { FieldMessage } from 'src/app/models/interfaces';
@@ -10,7 +10,8 @@ import { StorageService } from 'src/app/services/storage.service';
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     public storage: StorageService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public navCtrl: NavController,
   ) {}
 
   intercept(
@@ -75,12 +76,16 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 
   async handleDefaultEror(error) {
+    const msg = error.mensagem != undefined ? error.mensagem: 'Ocorreu um erro interno na aplicação, desculpe o transtorno';
+
     const alert = await this.alertController.create({
-      header: 'Erro ' + error.status,
-      message: error.mensagem,
+      header: 'Erro: ' + error.status,
+      message: msg,
       buttons: ['OK']
     });
-    await alert.present();
+    await alert.present().then(() => { 
+        this.navCtrl.navigateForward('login'); 
+    });
   }
 
   private listErrors(messages: FieldMessage[]): string {

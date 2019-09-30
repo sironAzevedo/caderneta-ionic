@@ -14,9 +14,14 @@
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   flex-direction: column;
-  margin: 3px 0px;
+  margin: 4px 0px 20px;
 }
 
 .example-radio-button {
   margin: 12px 54px 10px 0px;
+}
+
+.button-salvar { 
+  flex-direction: column;
+  margin: 20px 50px 50px;
 }

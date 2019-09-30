@@ -27,13 +27,13 @@
             <mat-datepicker #pagamento></mat-datepicker>
         </mat-form-field>
 
-        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="statusConta">
+        <mat-radio-group (change)="isParcelado($event)" aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="statusConta">
             <mat-radio-button class="example-radio-button" *ngFor="let status of statusConta" [value]="status.codigo">
                 {{status.descricao}}
             </mat-radio-button>
         </mat-radio-group>
 
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" [hidden]="inputParcelado">
             <input matInput type="number" placeholder="Quantidade de Parcelas" formControlName="qtdParcelas">
         </mat-form-field>
 
@@ -43,7 +43,7 @@
         </mat-form-field>
     </form>
 
-    <ion-toolbar class="example-full-width">
-        <ion-button (click)="salvar()" [disabled]="!formGroup.valid || addCan" expand="block" shape="round">Salvar</ion-button>
+    <ion-toolbar >
+        <ion-button class="button-salvar" (click)="salvar()" [disabled]="!formGroup.valid || addCan" expand="block" shape="round">Salvar</ion-button>
     </ion-toolbar>
 </ion-content>

@@ -34,7 +34,7 @@ export class ContaListPage implements OnInit {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.mesId = this.router.getCurrentNavigation().extras.state.mes;
-      }
+      } 
     });
   }
 
