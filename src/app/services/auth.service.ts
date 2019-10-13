@@ -26,16 +26,10 @@ export class AuthService {
 
   authenticate(user: CredenciaisDTO): Observable<AuthResponse> {
     return this.http.post(`${API_CONFIG.baseUrl}/login`, user).pipe(
-      retry(2),
       tap(async (res: AuthResponse) => {
         if (res.token) {
           this.successfulLogin(res.token);
         }
-      }),
-      catchError(error => {
-        console.error('Mensagem: ' + error.message);
-        console.log('Mensagem: ' + error);
-        return of(error);
       })
     );
   }

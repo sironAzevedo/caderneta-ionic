@@ -2,27 +2,64 @@
   <ion-title>
     <h3>Caderneta de Contas</h3>
   </ion-title>
-  <img src="assets/imgs/login.png" alt="logo">
 
-  <form [formGroup]="formGroup">
+  
+  <!--<img src="assets/imgs/login.png" alt="logo">-->
+  <!--<b class="tag">#</b>-->
+  <!--<h1 class="typing-element"></h1>-->
 
-    <ion-item>
-      <ion-label position="inline">Email <ion-text color="danger">*</ion-text>
-      </ion-label>
-      <ion-input formControlName="email" name="email" type="email"></ion-input>
-    </ion-item>
+  <div class="fild-form">
 
-    <ion-item>
-      <ion-label position="inline">Senha <ion-text color="danger">*</ion-text>
-      </ion-label>
-      <ion-input [type]="isTextFieldType ? 'text' : 'password'" formControlName="senha" name="senha" type="password">
-      </ion-input>
-      <ion-icon slot="end" (click)="togglePasswordFieldType()" [name]="isTextFieldType ? 'eye-off' : 'eye'">
-      </ion-icon>
-    </ion-item>
+    <form [formGroup]="formGroup">
 
-    <ion-button expand="block" (click)="login()" [disabled]="!formGroup.valid || addCan">Entrar</ion-button>
-  </form>
-  <ion-button expand="block" size="small" (click)="registrar()">Registrar</ion-button>
+      <div class="col-sm-3 my-1">
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <ion-icon name="mail"></ion-icon>
+            </div>
+          </div>
+          <input type="email" class="form-control" formControlName="email" name="email" placeholder="Email" required
+            [ngClass]="{ 
+              'is-valid': isFieldValid, 
+              'is-invalid': isFieldInValid
+            }">
+        </div>
+      </div>
 
+      <div class="col-sm-3 my-1">
+        <div class="input-group mb-2 mr-sm-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <ion-icon name="lock"></ion-icon>
+            </div>
+          </div>
+          <input type="password" class="form-control" formControlName="senha" name="senha" placeholder="Senha"
+            [ngClass]="{ 'is-valid': !f.senha.errors }" required>
+        </div>
+      </div>
+
+      <div class="fild-form-esqueci-senha">
+        <ion-note slot="primary" [routerDirection]="'root'" [routerLink]="['/cadastro']" color="primary">Esqueci a
+          senha?
+        </ion-note>
+      </div>
+
+      <ion-button class="fild-form-login" expand="block" (click)="login()" [disabled]="!formGroup.valid || addCan">
+        Entrar</ion-button>
+    </form>
+  </div> 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="footer">
+      <p>
+        Ainda não tem cadastro?
+        <ion-label color="primary" position="floating" [routerDirection]="'root'" [routerLink]="['/cadastro']">
+          Click aqui
+        </ion-label>
+      </p>
+    </div>
+  </ion-toolbar>
+</ion-footer>

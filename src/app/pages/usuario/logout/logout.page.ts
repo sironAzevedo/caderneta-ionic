@@ -12,7 +12,7 @@ export class LogoutPage implements OnInit {
 
   ngOnInit() {
     this.menu.get().then((menu: HTMLIonMenuElement) => {
-      menu.swipeGesture = false;
+      this.menu.enable(false)
     });
 
     this.authService.logout();

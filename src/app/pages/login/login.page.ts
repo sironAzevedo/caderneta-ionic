@@ -1,18 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  LoadingController,
-  MenuController,
-  ModalController,
-  NavController
-} from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingController, MenuController, NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
-import { myEnterAnimation } from 'src/app/shared/animations/enter';
-import { myLeaveAnimation } from 'src/app/shared/animations/leave';
 import { CredenciaisDTO } from 'src/app/models/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
-import { CadastroPage } from './../usuario/cadastro/cadastro.page';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NavigationOptions } from '@ionic/angular/dist/providers/nav-controller';
+import * as Typed from 'typed.js';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +14,8 @@ import { NavigationOptions } from '@ionic/angular/dist/providers/nav-controller'
 
 export class LoginPage implements OnInit {
   private loading: any;
-  isTextFieldType: boolean;
+  isValid: boolean;
+  isInValid: boolean;
 
   formGroup: FormGroup;
   addCan = false;
@@ -33,29 +26,55 @@ export class LoginPage implements OnInit {
     private loadingCtrl: LoadingController,
     private authService: AuthService,
     public formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.validFields();
+    this.validFields(); 
   }
 
   ionViewWillEnter() {
     this.menu.get().then((menu: HTMLIonMenuElement) => {
-      menu.swipeGesture = false;
+      this.menu.enable(false)
     });
   }
 
   ionViewDidLeave() {
     this.menu.get().then((menu: HTMLIonMenuElement) => {
+      this.menu.enable(true)
       menu.swipeGesture = true;
     });
   }
 
   validFields() {
     this.formGroup = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required]]
+      email: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])],
+      senha: ['', Validators.required]
     });
+  }
+
+  get f() {
+    return this.formGroup.controls;
+  }
+
+  get isFieldValid() {
+    const control = this.f.email;
+
+    if (control.touched || control.value != "") {
+      if (control.status === 'VALID') {
+        this.isInValid = false;
+        return this.isValid = true;
+      } else {
+        this.isInValid = true;
+        return this.isValid = false;
+      }
+    }
+  }
+
+  get isFieldInValid() {
+    return this.isInValid;
   }
 
   async login() {
@@ -76,15 +95,10 @@ export class LoginPage implements OnInit {
         () => {
           this.router.navigateRoot('/dashboard');
         },
-        error => {}
+        error => { 
+          this.addCan = false;
+        }
       );
-  }
-
-  async registrar() {
-    const animated: NavigationOptions = {
-      animated: true
-    } 
-    this.router.navigateRoot('/cadastro', animated);
   }
 
   async presentLoading() {
@@ -96,7 +110,20 @@ export class LoginPage implements OnInit {
     return this.loading.present();
   }
 
-  togglePasswordFieldType() {
-    this.isTextFieldType = !this.isTextFieldType;
+  mensagem(){
+
+    const options = {
+      stringsElement: '#typed-strings',
+      strings: ['Caderneta de Contas', 'Organize suas contas pessoais com o CONTAS DE CASAS'],
+      typeSpeed: 100,
+      backSpeed: 100,
+      backDelay: 200,
+      smartBackspace: true,
+      fadeOut: true,
+      showCursor: false,
+      startDelay: 1000,
+      loop: true
+    }; 
+    const typed = new Typed('.typing-element', options); 
   }
 }
