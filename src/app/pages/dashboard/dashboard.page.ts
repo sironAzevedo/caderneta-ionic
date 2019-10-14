@@ -3,6 +3,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { DashboardDTO } from '../../models/interfaces';
 import { API_CONFIG } from '../../services/config/api.config';
 import { DashboardService } from '../../services/domain/dashboard.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,9 +17,9 @@ export class DashboardPage implements OnInit {
   constructor(
     public router: Router,
     public dashboard: DashboardService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     this.loadDashboard();
@@ -30,7 +31,7 @@ export class DashboardPage implements OnInit {
         this.items = response;
         console.log(response);
       },
-      error => {}
+      error => { }
     );
   }
 

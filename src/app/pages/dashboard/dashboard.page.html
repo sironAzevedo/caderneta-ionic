@@ -12,21 +12,39 @@
   <app-list-skeleton [items]="items"></app-list-skeleton>
 
   <ion-list>
-    <ion-card *ngFor="let item of items" (click)="contas(item.codigo)">
+    <div>
+      <ion-card *ngFor="let item of items" (click)="contas(item.codigo)">
 
-      <ion-item color="primary">
+        <div class="card-header">
+          <div class="card-header-mes">
+            <ion-label>{{item.codigo | mesLength }}</ion-label>
+          </div>
+          <div class="card-header-mes-ano">
+            <ion-label>{{ item.mes }}</ion-label>
+          </div>
+          <div class="card-content">
+            <p>Quantidade de contas: {{ item.qtdConta }}</p>
+            <p>Salario: R$ {{ item.salario }}</p>
+            <p>Total de Gastos: R$ {{ item.totalGastos }}</p>
+            <p>Saldo Final: R$ {{ item.saldoFinal }}</p>
+          </div>
+        </div>
+        <!-- <ion-item color="primary">
         <ion-icon color="dark" slot="start" name="card"></ion-icon>
         <ion-card-title text-capitalize color="light">{{ item.mes }} / {{ item.ano }}</ion-card-title>
         <ion-badge color="dark" slot="end">{{ item.qtdConta }}</ion-badge>
       </ion-item>
 
       <ion-card-content>
-        <p>Salario: R$ {{ item.salario }}</p> 
+        <p>Salario: R$ {{ item.salario }}</p>
         <p>Total de Gastos: R$ {{ item.totalGastos }}</p>
         <p>Saldo Final: R$ {{ item.saldoFinal }}</p>
-      </ion-card-content>
-    </ion-card>
+      </ion-card-content> -->
+      </ion-card>
+      <div class="card-header-footer"></div>
+    </div>
   </ion-list>
+
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addConta()">
