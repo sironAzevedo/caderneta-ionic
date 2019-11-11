@@ -3,7 +3,8 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import {
   LoadingController,
   NavController,
-  ToastController
+  ToastController,
+  AlertController
 } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { ContaDTO } from 'src/app/models/interfaces';
@@ -27,14 +28,15 @@ export class ContaListPage implements OnInit {
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
     private contaService: ContaService,
-    private toastCtrl: ToastController
-  ) {}
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.mesId = this.router.getCurrentNavigation().extras.state.mes;
-      } 
+      }
     });
   }
 
@@ -47,7 +49,7 @@ export class ContaListPage implements OnInit {
       items => {
         this.items = items;
       },
-      error => {}
+      error => { }
     );
   }
 
@@ -60,10 +62,42 @@ export class ContaListPage implements OnInit {
     await this.router.navigate(['/conta'], params);
   }
 
-  async deletarConta(id: string) {
+  async editarConta(id: string) {
+    const params: NavigationExtras = {
+      state: {
+        conta: id
+      }
+    };
+    await this.router.navigate(['/conta'], params);
+  }
+
+  async deletarConta(conta: ContaDTO) {
+
+    const alert = await this.alertCtrl.create({
+      header: 'Deletar?',
+      message: 'Deseja excluir essa conta?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Excluir',
+          handler: () => {
+            this.executeDelete(conta);
+          }
+        }
+
+      ]
+    });
+
+    alert.present();
+  }
+
+  async executeDelete(conta: ContaDTO) {
     await this.presentLoading();
     this.contaService
-      .deletarConta(id)
+      .deletarConta(conta.codigo)
       .pipe(finalize(() => this.loading.dismiss()))
       .subscribe(
         () => {
@@ -71,7 +105,7 @@ export class ContaListPage implements OnInit {
             this.loadContas();
           });
         },
-        error => {}
+        error => { }
       );
   }
 

@@ -124,6 +124,6 @@ export class LoginPage implements OnInit {
       startDelay: 1000,
       loop: true
     }; 
-    const typed = new Typed('.typing-element', options); 
+    //const typed = new Typed('.typing-element', options); 
   }
 }

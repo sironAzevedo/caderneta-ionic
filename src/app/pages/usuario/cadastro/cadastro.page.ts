@@ -14,7 +14,6 @@ import { StorageService } from 'src/app/services/storage.service';
 export class CadastroPage implements OnInit {
   formGroup: FormGroup;
   private loading: any;
-  public user: UsuarioDTO = new UsuarioDTO();
   addCan = false;
   isTextFieldType: boolean;
   showItems = true;

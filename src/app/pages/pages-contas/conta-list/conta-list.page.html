@@ -21,7 +21,10 @@
       </ion-item>
 
       <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="deletarConta(item.codigo)">
+        <ion-item-option color="warning" (click)="editarConta(item.codigo)">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="deletarConta(item)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>
@@ -30,10 +33,10 @@
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" right #fab>
     <ion-fab-button (click)="addConta()">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="create"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-</ion-content> 
+</ion-content>
 
 <ion-footer no-border>
   <ion-toolbar>

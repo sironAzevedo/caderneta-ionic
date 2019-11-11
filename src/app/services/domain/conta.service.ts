@@ -36,6 +36,12 @@ export class ContaService {
     );
   }
 
+  buscarConta(id: string): Observable<ContaDTO>{
+    return this.http.get<ContaDTO>(
+      `${API_CONFIG.baseUrl}/v1/conta?id=${id}`
+    );
+  }
+
   statusConta(): Observable<StatusContaDTO[]> {
     return this.http.get<StatusContaDTO[]>(`${API_CONFIG.baseUrl}/v1/conta/status`);
   }

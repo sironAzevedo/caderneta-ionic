@@ -1,5 +1,5 @@
 import { DateFormatPipe } from './../../../shared/pipes/dateFormatPipe';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter, NativeDateAdapter } from '@angular/material';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
@@ -23,6 +23,9 @@ export class ContaDetailPage implements OnInit {
   inputParcelado = true;
   radioValue: string;
   private mesId: string;
+  private conta: string;
+  titulo: string = 'nova conta';
+  btnName: string = 'salvar';
 
   constructor(
     dateAdapter: DateAdapter<NativeDateAdapter>,
@@ -32,16 +35,17 @@ export class ContaDetailPage implements OnInit {
     public contaService: ContaService,
     public router: Router,
     private route: ActivatedRoute,
-    private dateFormat: DateFormatPipe
+    private dateFormat: DateFormatPipe,
+    public ngZone: NgZone
   ) {
     dateAdapter.setLocale('pt-BR');
   }
 
   ngOnInit() {
     this.validFields();
-    this.loadMes();
-    this.contaService.statusConta().subscribe(result => this.statusConta = result);
     this.contaService.tipoContas().subscribe(result => this.tipoContas = result);
+    this.contaService.statusConta().subscribe(result => this.statusConta = result);
+    this.loadConta();
   }
 
   validFields() {
@@ -57,10 +61,26 @@ export class ContaDetailPage implements OnInit {
     });
   }
 
-  loadMes() {
+  loadConta() {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.mesId = this.router.getCurrentNavigation().extras.state.mes;
+        if (this.router.getCurrentNavigation().extras.state.mes) {
+          this.mesId = this.router.getCurrentNavigation().extras.state.mes;
+        } else if (this.router.getCurrentNavigation().extras.state.conta) {
+          this.titulo = 'editar conta'
+          this.btnName = 'Atualizar';
+          this.conta = this.router.getCurrentNavigation().extras.state.conta;
+          this.contaService.buscarConta(this.conta).subscribe(res => {
+            this.formGroup.controls['tipoConta'].setValue(res.tipoConta.codigo);
+            this.formGroup.controls['valorConta'].setValue(res.valorConta);
+            this.formGroup.controls['dataVencimento'].setValue(new Date(this.dateFormat.transform(res.dataVencimento)));
+            this.formGroup.controls['dataPagamento'].setValue(new Date(this.dateFormat.transform(res.dataPagamento)));
+            this.formGroup.controls['statusConta'].setValue(res.status.codigo);
+            this.formGroup.controls['qtdParcelas'].setValue(res.qtdParcelas);
+            this.formGroup.controls['comentario'].setValue(res.comentario);
+            this.mesId = res.mes.codigo;
+          });
+        }
       }
     });
   }
@@ -81,7 +101,7 @@ export class ContaDetailPage implements OnInit {
     const mesDTO: MesDTO = {
       codigo: this.mesId
     }
-
+     
     const conta: ContaDTO = {
       tipoConta: tipo,
       valorConta: this.inputNumberNormalize(formValue.valorConta),
@@ -93,18 +113,38 @@ export class ContaDetailPage implements OnInit {
       mes: mesDTO
     };
 
-    this.contaService.salvarConta(conta)
-    .pipe(
-      delay(2000),
-      finalize(() => this.loading.dismiss()))
-      .subscribe(
-        (res) => {
-          this.showInsertOk();
-        },
-        error => {
-          this.addCan = false;
-        }
-      );
+    this.saveOrUpdate(conta);
+  }
+
+  saveOrUpdate(conta: ContaDTO) {
+    if (this.conta) {
+      conta.codigo = this.conta,
+        this.contaService.atualizarConta(conta)
+          .pipe(
+            delay(2000),
+            finalize(() => this.loading.dismiss()))
+          .subscribe(
+            (res) => {
+              this.showInsertOk('Atualização realizada com sucesso');
+            },
+            error => {
+              this.addCan = false;
+            }
+          );
+    } else {
+      this.contaService.salvarConta(conta)
+        .pipe(
+          delay(2000),
+          finalize(() => this.loading.dismiss()))
+        .subscribe(
+          (res) => {
+            this.showInsertOk('Cadastro realizado com sucesso');
+          },
+          error => {
+            this.addCan = false;
+          }
+        );
+    }
   }
 
   async presentLoading() {
@@ -116,10 +156,10 @@ export class ContaDetailPage implements OnInit {
     return this.loading.present();
   }
 
-  async showInsertOk() {
+  async showInsertOk(mensagem: string) {
     const alert = await this.alertCtrl.create({
       header: 'Sucesso!',
-      message: 'Cadastro efetuado com sucesso',
+      message: mensagem,
       buttons: [
         {
           text: 'OK',
@@ -138,12 +178,13 @@ export class ContaDetailPage implements OnInit {
         mes: this.mesId
       }
     };
-    await this.router.navigate(['/contas'], params);
+    this.ngZone.run( ()=> this.router.navigate(['/contas'], params)  ).then();
+    ;
   }
 
-  isParcelado(event: KeyboardEvent){
+  isParcelado(event: KeyboardEvent) {
     const formValue = this.formGroup.value;
-    if(formValue.statusConta === 4){
+    if (formValue.statusConta === 4) {
       this.inputParcelado = false;
     } else {
       this.inputParcelado = true;
@@ -155,7 +196,7 @@ export class ContaDetailPage implements OnInit {
     const patternBeforeComma = /[0-9,]/;
     const patternAfterComma = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
-    const eventTarget =  event.target as HTMLInputElement;
+    const eventTarget = event.target as HTMLInputElement;
     const fieldClean = this.inputNumberNormalize(eventTarget.value).replace(/\./g, '');
 
     switch (true) {
@@ -211,6 +252,7 @@ export class ContaDetailPage implements OnInit {
       .replace(/^R\$ */, '')
       .replace(/\./g, '')
       .replace(/%/g, '')
-      .replace(',', '.');
-  }
+//      .replace(',', '.')
+      ;
+  } 
 }

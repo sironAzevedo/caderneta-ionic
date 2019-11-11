@@ -29,7 +29,6 @@ export class DashboardPage implements OnInit {
     this.dashboard.findAll().subscribe(
       response => {
         this.items = response;
-        console.log(response);
       },
       error => { }
     );
