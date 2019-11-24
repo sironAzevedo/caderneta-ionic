@@ -19,6 +19,9 @@ import { UsuarioService } from './services/domain/usuario.service';
 import { StorageService } from './services/storage.service';
 import { SharedModule } from './shared/shared.module';
 
+import { SQLite } from '@ionic-native/sqlite/ngx'
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx'
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -44,7 +47,9 @@ import { SharedModule } from './shared/shared.module';
     UsuarioService,
     ErrorInterceptorProvider,
     AuthInterceptorProvider,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    SQLite,
+    SQLitePorter
   ],
   bootstrap: [AppComponent]
 })

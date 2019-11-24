@@ -1,5 +1,7 @@
 {
   "name": "caderneta-ionic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
